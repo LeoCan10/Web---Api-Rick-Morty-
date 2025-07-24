@@ -8,13 +8,14 @@ import { NgForOf } from "@angular/common";
   standalone: true,
     imports: [NgForOf]
 })
+
 export class PaginationComponent {
   @Input() currentPage!: number;
   @Input() totalPages!: number;
   @Input() maxPagesToShow: number = 3;
 
   @Output() pageChange = new EventEmitter<number>();
-
+  //Calcula paginas visibles (en base a actual y total)
   getVisiblePages(): number[] {
     const pages = [];
 
@@ -25,7 +26,7 @@ export class PaginationComponent {
       end = this.totalPages;
       start = Math.max(1, end - this.maxPagesToShow + 1);
     }
-
+     //llena array de números de página
     for (let i = start; i <= end; i++) {
       pages.push(i);
     }

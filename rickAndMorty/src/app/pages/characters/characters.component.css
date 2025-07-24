@@ -178,3 +178,9 @@
   padding: 0.2rem;
   font-size: 10;
 }
+.page-link, .search-button {
+  -ms-user-select: none; /* Evita la selección de texto */
+  -webkit-user-select: none; /* Para compatibilidad con Safari */
+  -moz-user-select: none; /* Para compatibilidad con Firefox */
+  user-select: none; /* Para compatibilidad con IE/Edge */
+}

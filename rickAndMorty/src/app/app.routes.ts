@@ -3,7 +3,7 @@ import { NgModule} from '@angular/core';
 
 import { CharactersComponent } from './pages/characters/characters.component';
 import { CharacterDetailComponent } from './pages/character-detail/character-detail.component';
-
+import { notFoundComponent } from './pages/404-notfound/404-notfound.component';
 
 export const routes: Routes = [
   {
@@ -12,9 +12,12 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: '',
-    pathMatch: 'full',
-    redirectTo: 'characters',
+    path: 'characters/:id',
+    component: CharacterDetailComponent,
+  },
+  {
+    path: '**',
+    component: notFoundComponent,
   }
 ];
 

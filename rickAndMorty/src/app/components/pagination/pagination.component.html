@@ -2,7 +2,7 @@
   <li class="page-item" [class.disabled]="currentPage === 1">
     <a class="page-link" (click)="changePage(currentPage - 1)">Previous</a>
   </li>
-
+  <!--Muestra num pags-->
   <li
     class="page-item"
     *ngFor="let page of getVisiblePages()"
