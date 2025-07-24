@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { rickMortyService } from '../../services/rickMorty.service';
-import { NgForOf } from "@angular/common";
+import { NgForOf } from '@angular/common';
+import { RouterLink } from '@angular/router';
+
+import { CharacterCardComponent } from '../../components/character-card/character-card.component';
+import { PaginationComponent } from '../../components/pagination/pagination.component';
 
 @Component({
   selector: 'app-characters',
   templateUrl: './characters.component.html',
   styleUrls: ['./characters.component.css'],
-    imports: [NgForOf]
+  imports: [NgForOf, RouterLink, CharacterCardComponent, PaginationComponent]
 })
 export class CharactersComponent implements OnInit {
   characters: any[] = [];
@@ -16,10 +20,10 @@ export class CharactersComponent implements OnInit {
   constructor(private rickMortyService: rickMortyService) {}
 
   ngOnInit(): void {
-    this.loadCharacters();
+    this.loadCharacters(1);
   }
 
-  loadCharacters(page: number = 1): void {
+  loadCharacters(page: number): void {
     this.rickMortyService.getCharacters(page).subscribe((data) => {
       this.characters = data.results;
       this.totalPages = data.info.pages;
@@ -28,7 +32,7 @@ export class CharactersComponent implements OnInit {
   }
 
   changePage(page: number): void {
-    if (page > 0 && page <= this.totalPages) {
+    if (page !== this.currentPage && page > 0 && page <= this.totalPages) {
       this.loadCharacters(page);
     }
   }

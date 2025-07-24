@@ -1,38 +1,33 @@
-<div class="container">
+<div id="background">
+  <nav class="breadcrumb">
+    <span class="breadcrumb-item"><a routerLink="/">Home</a></span>
+    <span class="breadcrumb-item active">Characters</span>
+  </nav>
 
   <!-- Buscador -->
-  <div class="search-bar">
-    <input type="text" placeholder="Search..." />
-    <button>Search</button>
+  <div class="search-container">
+    <input class="search-input" type="text" placeholder="Search..." />
+    <button class="search-button">Search</button>
   </div>
 
   <!-- Grid de personajes -->
   <div class="row">
     <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let character of characters">
-      <div class="card h-100">
-        <img [src]="character.image" class="card-img-top" alt="character.name" />
-        <div class="card-body">
-          <h5 class="card-title">{{ character.name }}</h5>
-        </div>
-      </div>
+      <app-character-card [character]="character"></app-character-card>
     </div>
   </div>
 
   <!-- Paginación -->
-  <nav>
-    <ul class="pagination">
-      <li class="page-item" [class.disabled]="currentPage === 1">
-        <a class="page-link" (click)="changePage(currentPage - 1)">Previous</a>
-      </li>
+  <div class="pagination-container">
+    <app-pagination
+      [currentPage]="currentPage"
+      [totalPages]="totalPages"
+      [maxPagesToShow]="3"
+      (pageChange)="changePage($event)"
+    ></app-pagination>
+  </div>
 
-      <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index"
-          [class.active]="currentPage === i + 1">
-        <a class="page-link" (click)="changePage(i + 1)">{{ i + 1 }}</a>
-      </li>
-
-      <li class="page-item" [class.disabled]="currentPage === totalPages">
-        <a class="page-link" (click)="changePage(currentPage + 1)">Next</a>
-      </li>
-    </ul>
-  </nav>
+  <footer class="footer">
+    <h6>Rick and Morty Wiki - All rights reserved to John Doe SA</h6>
+  </footer>
 </div>
