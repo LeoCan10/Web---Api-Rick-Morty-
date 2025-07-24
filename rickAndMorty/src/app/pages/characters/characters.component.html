@@ -1,0 +1,30 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let character of characters">
+      <div class="card h-100">
+        <img [src]="character.image" class="card-img-top" alt="character.name">
+        <div class="card-body">
+          <h5 class="card-title">{{ character.name }}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGINATION -->
+  <nav>
+    <ul class="pagination justify-content-center">
+      <li class="page-item" [class.disabled]="currentPage === 1">
+        <a class="page-link" (click)="changePage(currentPage - 1)">Anterior</a>
+      </li>
+
+      <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index"
+          [class.active]="currentPage === i + 1">
+        <a class="page-link" (click)="changePage(i + 1)">{{ i + 1 }}</a>
+      </li>
+
+      <li class="page-item" [class.disabled]="currentPage === totalPages">
+        <a class="page-link" (click)="changePage(currentPage + 1)">Siguiente</a>
+      </li>
+    </ul>
+  </nav>
+</div>
