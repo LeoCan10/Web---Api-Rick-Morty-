@@ -1,1 +1,13 @@
-{}
+{
+ "debug.enableStatusBarColor": false,
+ "cSpell.words": [
+  "Morty",
+  "Paginación"
+ ],
+ "angular-schematics.schematicsDefaultOptions": {
+  "angular-*": {
+   "externalTemplate": true,
+   "skipStyle": true
+  }
+ }
+}
