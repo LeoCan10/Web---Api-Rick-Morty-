@@ -29,14 +29,7 @@ export class CharacterDetailComponent implements OnInit {
   loadCharacter(id: number): void {
     this.rickMortyService.getCharacterById(id).subscribe(character => {
       this.character = character;
-      this.loadEpisodes(character.episode);
     });
   }
 
-  loadEpisodes(episodeUrls: string[]): void {
-    // El servicio debe tener un método para obtener múltiples episodios por URLs o ids
-    this.rickMortyService.getEpisodesByUrls(episodeUrls).subscribe(episodes => {
-      this.episodes = episodes;
-    });
-  }
 }

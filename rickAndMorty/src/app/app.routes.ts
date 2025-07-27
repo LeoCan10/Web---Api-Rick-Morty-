@@ -1,3 +1,4 @@
+// src/app/app.routes.ts
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule} from '@angular/core';
 
@@ -16,8 +17,17 @@ export const routes: Routes = [
     component: CharacterDetailComponent,
   },
   {
-    path: '**',
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'characters',
+  },
+  {
+    path: '404',
     component: notFoundComponent,
+  },
+  {
+    path: '**',
+    redirectTo: '404'
   }
 ];
 

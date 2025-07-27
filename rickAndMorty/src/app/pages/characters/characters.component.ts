@@ -8,6 +8,7 @@ import { PaginationComponent } from '../../components/pagination/pagination.comp
 
 @Component({
   selector: 'app-characters',
+  standalone: true,
   templateUrl: './characters.component.html',
   styleUrls: ['./characters.component.css'],
   imports: [NgForOf, RouterLink, CharacterCardComponent, PaginationComponent]

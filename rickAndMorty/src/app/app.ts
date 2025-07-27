@@ -1,17 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { provideHttpClient } from '@angular/common/http';
-import { provideRouter } from '@angular/router';
-import { routes } from './app.routes';
-import { bootstrapApplication } from '@angular/platform-browser';
 import { NavbarComponent } from "./components/navbar/navbar.component";
-
-bootstrapApplication(Component,{
-  providers: [
-    provideHttpClient(),
-    provideRouter(routes)
-  ]
-})
 
 @Component({
   selector: 'app-root',
