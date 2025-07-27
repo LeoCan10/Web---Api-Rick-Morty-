@@ -45,6 +45,21 @@
   color: #ccc;
 }
 
+.status-alive {
+  color: #4caf50 !important;
+  font-weight: bold;
+}
+
+.status-dead {
+  color: #f44336 !important;
+  font-weight: bold;
+}
+
+.status-unknown {
+  color: #ffeb3b !important;
+  font-weight: bold;
+}
+
 .episode-list {
   background-color: #1e1e1e;
   padding: 20px;

@@ -1,14 +1,16 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { rickMortyService } from '../../services/rickMorty.service';
-import { NgForOf, NgIf } from "@angular/common";
+import { NgForOf, NgIf, NgClass } from "@angular/common";
+import { StatusTranslatePipe } from '../../pipes/status-translate.pipe';
+import { GenderTranslatePipe } from '../../pipes/gender-translate.pipe';
 
 @Component({
   selector: 'app-character-detail',
   templateUrl: './character-detail.component.html',
   styleUrls: ['./character-detail.component.css'],
   standalone: true,
-  imports: [NgForOf, NgIf]
+  imports: [NgForOf, NgIf, NgClass, StatusTranslatePipe, GenderTranslatePipe]
 })
 export class CharacterDetailComponent implements OnInit {
   character: any = null;

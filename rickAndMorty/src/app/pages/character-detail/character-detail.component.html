@@ -16,9 +16,17 @@
 
       <div class="info-text">
         <h2>{{ character.name }}</h2>
-        <p><strong>Status:</strong> {{ character.status }}</p>
+        <p><strong>Status:</strong>
+          <span [ngClass]="{
+            'status-alive': character.status?.toLowerCase() === 'alive',
+            'status-dead': character.status?.toLowerCase() === 'dead',
+            'status-unknown': character.status?.toLowerCase() === 'unknown'
+          }">
+            {{ character.status | statusTranslate }}
+          </span>
+        </p>
         <p><strong>Species:</strong> {{ character.species }}</p>
-        <p><strong>Gender:</strong> {{ character.gender }}</p>
+        <p><strong>Gender:</strong> {{ character.gender | genderTranslate }}</p>
         <p><strong>Origin:</strong> {{ character.origin?.name || 'Desconocido' }}</p>
         <p><strong>Location:</strong> {{ character.location?.name || 'Desconocido' }}</p>
       </div>
