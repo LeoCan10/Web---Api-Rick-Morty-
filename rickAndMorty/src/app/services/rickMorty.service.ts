@@ -4,9 +4,6 @@ import { Observable } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class rickMortyService {
-  getEpisodesByUrls(episodeUrls: string[]) {
-    throw new Error('Method not implemented.');
-  }
   private baseUrl = 'https://rickandmortyapi.com/api';
 
   constructor(private http: HttpClient) {}
