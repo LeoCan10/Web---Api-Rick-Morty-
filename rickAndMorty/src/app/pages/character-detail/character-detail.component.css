@@ -86,3 +86,29 @@
     align-items: center;
   }
 }
+
+.loading-container {
+  text-align: center;
+  padding: 50px;
+  color: #fff;
+  font-size: 18px;
+}
+
+.error-container {
+  text-align: center;
+  padding: 50px;
+  color: #ff6b6b;
+  font-size: 18px;
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  border: 1px solid #ff6b6b;
+}
+
+.no-episodes {
+  background-color: #1e1e1e;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  color: #888;
+  font-style: italic;
+}

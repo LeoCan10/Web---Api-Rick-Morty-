@@ -1,23 +1,40 @@
 <div class="detail-container">
-  <div class="character-info">
-    <img [src]="character.image" alt="character.name" />
-
-    <div class="info-text">
-      <h2>{{ character.name }}</h2>
-      <p><strong>Status:</strong> {{ character.status }}</p>
-      <p><strong>Species:</strong> {{ character.species }}</p>
-      <p><strong>Gender:</strong> {{ character.gender }}</p>
-      <p><strong>Origin:</strong> {{ character.origin?.name }}</p>
-      <p><strong>Location:</strong> {{ character.location?.name }}</p>
-    </div>
+  <!-- Mostrar loading mientras carga -->
+  <div *ngIf="loading" class="loading-container">
+    <p>Cargando personaje...</p>
   </div>
 
-  <div class="episode-list" *ngIf="episodes.length > 0">
-    <h3>List of Episodes appearances</h3>
-    <ul>
-      <li *ngFor="let episode of episodes">
-        Episode {{ episode.id }} - {{ episode.name }}
-      </li>
-    </ul>
+  <!-- Mostrar error si hay uno -->
+  <div *ngIf="error && !loading" class="error-container">
+    <p>{{ error }}</p>
+  </div>
+
+  <!-- Mostrar contenido solo si character existe y no hay error -->
+  <div *ngIf="character && !loading && !error">
+    <div class="character-info">
+      <img [src]="character.image" alt="character.name" />
+
+      <div class="info-text">
+        <h2>{{ character.name }}</h2>
+        <p><strong>Status:</strong> {{ character.status }}</p>
+        <p><strong>Species:</strong> {{ character.species }}</p>
+        <p><strong>Gender:</strong> {{ character.gender }}</p>
+        <p><strong>Origin:</strong> {{ character.origin?.name || 'Desconocido' }}</p>
+        <p><strong>Location:</strong> {{ character.location?.name || 'Desconocido' }}</p>
+      </div>
+    </div>
+
+    <div class="episode-list" *ngIf="episodes.length > 0">
+      <h3>List of Episodes appearances</h3>
+      <ul>
+        <li *ngFor="let episode of episodes">
+          Episode {{ episode.id }} - {{ episode.name }}
+        </li>
+      </ul>
+    </div>
+
+    <div *ngIf="episodes.length === 0 && character.episode?.length > 0" class="no-episodes">
+      <p>No se pudieron cargar los episodios.</p>
+    </div>
   </div>
 </div>
