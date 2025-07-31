@@ -4,7 +4,7 @@ import { NgModule} from '@angular/core';
 
 import { CharactersComponent } from './pages/characters/characters.component';
 import { CharacterDetailComponent } from './pages/character-detail/character-detail.component';
-import { notFoundComponent } from './pages/404-notfound/404-notfound.component';
+import { notFoundComponent } from './pages/notfound/notfound.component';
 
 export const routes: Routes = [
   {
@@ -22,12 +22,12 @@ export const routes: Routes = [
     redirectTo: 'characters',
   },
   {
-    path: '404',
+    path: 'notfound',
     component: notFoundComponent,
   },
   {
     path: '**',
-    redirectTo: '404'
+    redirectTo: 'notfound',
   }
 ];
 
