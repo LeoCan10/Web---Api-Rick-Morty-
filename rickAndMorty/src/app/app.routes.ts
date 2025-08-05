@@ -4,7 +4,7 @@ import { NgModule} from '@angular/core';
 
 import { CharactersComponent } from './pages/characters/characters.component';
 import { CharacterDetailComponent } from './pages/character-detail/character-detail.component';
-import { notFoundComponent } from './pages/notfound/notfound.component';
+import { NotFoundComponent } from './pages/notfound/notfound.component';
 
 export const routes: Routes = [
   {
@@ -23,7 +23,7 @@ export const routes: Routes = [
   },
   {
     path: 'notfound',
-    component: notFoundComponent,
+    component: NotFoundComponent,
   },
   {
     path: '**',
