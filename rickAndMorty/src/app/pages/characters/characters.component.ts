@@ -24,6 +24,7 @@ export class CharactersComponent implements OnInit {
     this.loadCharacters(1);
   }
 
+
   loadCharacters(page: number): void {
     this.rickMortyService.getCharacters(page).subscribe((data) => {
       this.characters = data.results;
@@ -37,4 +38,6 @@ export class CharactersComponent implements OnInit {
       this.loadCharacters(page);
     }
   }
+
+
 }
