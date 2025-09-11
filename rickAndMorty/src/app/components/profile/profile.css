@@ -1,0 +1,91 @@
+.page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 64px);
+  padding: 2rem;
+  background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+}
+
+mat-card {
+  width: min(600px, 90%);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  border-radius: 16px;
+  background: white;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.field {
+  width: 100%;
+}
+
+.user-info {
+  background: #f8f9ff;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  border-left: 4px solid #667eea;
+}
+
+.user-info p {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #333;
+  font-weight: 500;
+}
+
+
+button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.button-group button:first-child {
+  order: 1;
+}
+
+.button-group button:nth-child(2) {
+  order: 2;
+}
+
+.button-group button:last-child {
+  order: 3;
+  margin-top: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .page {
+    padding: 1rem;
+  }
+
+  mat-card {
+    padding: 1.5rem;
+  }
+
+  .user-info {
+    padding: 0.8rem;
+  }
+}

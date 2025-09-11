@@ -1,0 +1,82 @@
+<div class="page">
+  <mat-card>
+    <h2>Editar Perfil</h2>
+
+    <form [formGroup]="profileForm" (ngSubmit)="onSave()">
+      <!-- Nombre -->
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Nombre completo</mat-label>
+        <input matInput
+               formControlName="name"
+               placeholder="Tu nombre completo" />
+        <mat-error *ngIf="profileForm.get('name')?.hasError('required')">
+          El nombre es obligatorio
+        </mat-error>
+        <mat-error *ngIf="profileForm.get('name')?.hasError('minlength')">
+          El nombre debe tener al menos 2 caracteres
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Email -->
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Email</mat-label>
+        <input matInput
+               formControlName="email"
+               placeholder="ejemplo@email.com" />
+        <mat-error *ngIf="profileForm.get('email')?.hasError('required')">
+          El email es obligatorio
+        </mat-error>
+        <mat-error *ngIf="profileForm.get('email')?.hasError('email')">
+          Ingresa un email válido
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Password -->
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Contraseña</mat-label>
+        <input matInput
+               [type]="hidePassword ? 'password' : 'text'"
+               formControlName="password"
+               appPasswordStrength/>
+        <button mat-icon-button
+                matSuffix
+                type="button"
+                (click)="hidePassword = !hidePassword"
+                [attr.aria-label]="'Mostrar contraseña'">
+          {{ hidePassword ? '👁️' : '🙈' }}
+        </button>
+        <mat-error *ngIf="profileForm.get('password')?.hasError('required')">
+          La contraseña es obligatoria
+        </mat-error>
+        <mat-error *ngIf="profileForm.get('password')?.hasError('minlength')">
+          Debe tener al menos 6 caracteres
+        </mat-error>
+      </mat-form-field>
+
+      <div class="button-group">
+        <button mat-raised-button
+                color="primary"
+                type="submit"
+                [disabled]="!profileForm.valid || isSubmitting">
+          {{ isSubmitting ? 'Guardando...' : 'Guardar cambios' }}
+        </button>
+
+        <button mat-stroked-button
+                color="accent"
+                type="button"
+                (click)="onReset()"
+                [disabled]="isSubmitting">
+          Restaurar valores
+        </button>
+
+        <button mat-stroked-button
+                color="warn"
+                type="button"
+                (click)="logout()"
+                [disabled]="isSubmitting">
+          Cerrar sesión
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</div>

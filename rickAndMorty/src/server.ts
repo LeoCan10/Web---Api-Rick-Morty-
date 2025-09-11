@@ -61,6 +61,14 @@ if (isMainModule(import.meta.url)) {
     console.log(`Node Express server listening on http://localhost:${port}`);
   });
 }
+export function getPrerenderParams() {
+  return [
+    { id: '1' },
+    { id: '2' },
+    { id: '3' },
+    // o lo que sea que tenga sentido
+  ];
+}
 
 /**
  * Request handler used by the Angular CLI (for dev-server and during build) or Firebase Cloud Functions.
