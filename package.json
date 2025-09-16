@@ -2,7 +2,9 @@
   "dependencies": {
     "@angular/animations": "^20.3.0",
     "@angular/cdk": "^20.2.2",
+    "@angular/common": "^20.3.0",
     "@angular/material": "^20.2.2",
-    "bootstrap": "^5.3.7"
+    "bootstrap": "^5.3.7",
+    "zone.js": "^0.15.1"
   }
 }

@@ -6,7 +6,13 @@
     <a routerLink="/locations" routerLinkActive="active-link">Locations</a>
   </div>
   <div class="navbar-right">
-    <a href="#">Profile</a>
-    <a href="#">Log Out</a>
+    <ng-container >
+      <a style="cursor: pointer;">Profile</a>
+      <a style="cursor: pointer;">Log Out</a>
+    </ng-container>
+    <ng-template #guestLinks>
+      <a routerLink="/login">Login</a>
+      <a routerLink="/register">Register</a>
+    </ng-template>
   </div>
 </nav>
