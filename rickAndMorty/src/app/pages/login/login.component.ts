@@ -1,4 +1,3 @@
-// login.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -26,10 +25,10 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Verificar si viene de un registro exitoso
+    // Verifica si viene de un registro exitoso
     this.route.queryParams.subscribe(params => {
       if (params['registered'] === 'true') {
-        this.successMessage = `¡Cuenta creada exitosamente! Ahora puedes iniciar sesión.`;
+        this.successMessage = `¡Cuenta creada exitosamente! Inicia sesión.`;
         if (params['email']) {
           this.email = params['email'];
         }
@@ -52,10 +51,12 @@ export class LoginComponent implements OnInit {
     this.errorMessage = '';
     this.successMessage = '';
 
+    // Manda texto plano a la api
     this.authService.login(this.email, this.password).subscribe({
       next: (response: AuthResponse) => {
         this.isLoading = false;
         if (response.success) {
+          localStorage.setItem('authToken', response.token || '');
           this.router.navigate(['/characters']);
         } else {
           this.errorMessage = response.message || 'Error en el inicio de sesión';

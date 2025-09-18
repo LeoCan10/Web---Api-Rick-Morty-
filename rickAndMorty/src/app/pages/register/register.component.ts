@@ -1,9 +1,9 @@
-// register.component.ts
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService, AuthResponse } from '../../services/auth.service';
+import { hashPassword } from '../../utils/hash';
 
 @Component({
   selector: 'app-register',
@@ -25,8 +25,7 @@ export class RegisterComponent {
     private router: Router
   ) {}
 
-  onSubmit(): void {
-    // Validaciones
+  async onSubmit(): Promise<void> {
     if (!this.name || !this.email || !this.password || !this.confirmPassword) {
       this.errorMessage = 'Por favor, completa todos los campos';
       return;
@@ -50,6 +49,16 @@ export class RegisterComponent {
     this.isLoading = true;
     this.errorMessage = '';
 
+    // Hashea solo para guardar en Local
+    const hashedPassword = await hashPassword(this.password);
+
+    localStorage.setItem('user', JSON.stringify({
+      name: this.name,
+      email: this.email,
+      password: hashedPassword
+    }));
+
+    // Manda contraseña normal a la api
     this.authService.register({
       name: this.name,
       email: this.email,
@@ -58,7 +67,6 @@ export class RegisterComponent {
       next: (response: AuthResponse) => {
         this.isLoading = false;
         if (response.success) {
-          // Redirigir al login con mensaje de éxito
           this.router.navigate(['/login'], {
             queryParams: { registered: true, email: this.email }
           });

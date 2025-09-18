@@ -37,7 +37,7 @@ export class AuthService {
     this.checkStoredUser();
   }
 
-  // Método para verificar si estamos en el navegador
+  // Metodo para verificar si estamos en el navegador
   private isBrowser(): boolean {
     return isPlatformBrowser(this.platformId);
   }
@@ -79,7 +79,7 @@ export class AuthService {
       map(() => {
         const users = this.getUsers();
 
-        // Verificar si el email ya existe
+        // Verifica si el email ya existe
         const existingUser = users.find(user => user.email === userData.email);
         if (existingUser) {
           throw {
@@ -88,7 +88,7 @@ export class AuthService {
           };
         }
 
-        // Validar que las contraseñas coincidan (si se pasa confirmPassword)
+        // Valida que las contraseñas coincidan (si se pasa confirmPassword)
         if ((userData as any).confirmPassword && userData.password !== (userData as any).confirmPassword) {
           throw {
             success: false,
@@ -96,7 +96,7 @@ export class AuthService {
           };
         }
 
-        // Crear nuevo usuario
+        // Crea nuevo usuario
         const newUser: User = {
           ...userData,
           id: Date.now(),
@@ -130,7 +130,7 @@ export class AuthService {
           };
         }
 
-        // Guardar usuario en localStorage solo si estamos en el navegador
+        // Guarda el usuario en localStorage solo si estamos en el navegador
         if (this.isBrowser()) {
           localStorage.setItem(this.CURRENT_USER_KEY, JSON.stringify(user));
         }
