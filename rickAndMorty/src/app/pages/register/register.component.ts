@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-  selector: 'app-register',
+  selector: 'register',
   imports: [],
   templateUrl: './register.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
