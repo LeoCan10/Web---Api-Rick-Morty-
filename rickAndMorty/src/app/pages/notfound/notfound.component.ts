@@ -3,8 +3,9 @@ import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'error-404',
+  standalone: true,
   imports: [RouterLink],
-  styleUrls: ['notfound.component.css'],
-  templateUrl: 'notfound.component.html',
+  styleUrls: ['./notfound.component.css'],
+  templateUrl: './notfound.component.html',
 })
 export class NotFoundComponent { }
