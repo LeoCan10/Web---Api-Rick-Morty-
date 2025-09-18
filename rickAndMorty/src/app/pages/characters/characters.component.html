@@ -5,10 +5,15 @@
   </nav>
 
   <!-- Buscador -->
-  <div class="search-container">
-    <input class="search-input" type="text" placeholder="Search..." />
-    <button class="search-button">Search</button>
-  </div>
+<div class="search-container">
+  <input
+    class="search-input"
+    type="text"
+    placeholder="Search..."
+    [(ngModel)]="searchTerm"
+  />
+  <button class="search-button" (click)="onSearch()">Search</button>
+</div>
 
   <!-- Grid de personajes -->
   <div class="row">

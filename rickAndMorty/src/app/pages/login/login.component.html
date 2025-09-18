@@ -1,1 +1,93 @@
-<p>login works!</p>,
+<!-- login.component.html -->
+<div class="login-page d-flex align-items-center justify-content-center vh-100">
+  <div class="container-fluid">
+    <div class="row align-items-center">
+
+      <!-- Imagen Rick & Morty -->
+      <div class="col-md-6 text-center d-none d-md-block">
+        <img src="../../../assets/login-image.png" alt="Rick and Morty" class="img-fluid portal-img">
+      </div>
+
+      <!-- Card de Login -->
+      <div class="col-md-5 col-lg-4 mx-auto">
+        <div class="auth-card shadow-lg p-4 rounded">
+          <h2 class="text-center mb-4">Iniciar Sesión</h2>
+
+          <!-- Mensaje de éxito -->
+          <div *ngIf="successMessage" class="alert alert-success" role="alert">
+            {{ successMessage }}
+          </div>
+
+          <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+            <!-- Email -->
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                [(ngModel)]="email"
+                name="email"
+                placeholder="tu@email.com"
+                required
+                #emailInput="ngModel"
+                [class.is-invalid]="emailInput.invalid && emailInput.touched"
+              >
+              <div class="invalid-feedback" *ngIf="emailInput.errors?.['required']">
+                El email es requerido
+              </div>
+              <div class="invalid-feedback" *ngIf="emailInput.errors?.['email']">
+                Por favor ingresa un email válido
+              </div>
+            </div>
+
+            <!-- Password -->
+            <div class="mb-4">
+              <label for="password" class="form-label">Contraseña</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                [(ngModel)]="password"
+                name="password"
+                placeholder="Tu contraseña"
+                required
+                minlength="6"
+                #passwordInput="ngModel"
+                [class.is-invalid]="passwordInput.invalid && passwordInput.touched"
+              >
+              <div class="invalid-feedback" *ngIf="passwordInput.errors?.['required']">
+                La contraseña es requerida
+              </div>
+              <div class="invalid-feedback" *ngIf="passwordInput.errors?.['minlength']">
+                La contraseña debe tener al menos 6 caracteres
+              </div>
+            </div>
+
+            <!-- Mensaje de error -->
+            <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+              {{ errorMessage }}
+            </div>
+
+            <!-- Botón login -->
+            <button
+              type="submit"
+              class="btn btn-primary w-100 mb-3"
+              [disabled]="isLoading"
+            >
+              <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+              {{ isLoading ? 'Iniciando sesión...' : 'Iniciar Sesión' }}
+            </button>
+
+            <!-- Enlace registro -->
+            <div class="text-center">
+              <p>¿No tienes una cuenta?
+                <a routerLink="/register" class="text-decoration-none">Regístrate aquí</a>
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

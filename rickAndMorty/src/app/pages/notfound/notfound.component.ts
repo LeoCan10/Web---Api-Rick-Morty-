@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouterLink } from "@angular/router";
 
 @Component({
-  selector: 'error-404',
+  selector: 'notfound',
   standalone: true,
   imports: [RouterLink],
   styleUrls: ['./notfound.component.css'],

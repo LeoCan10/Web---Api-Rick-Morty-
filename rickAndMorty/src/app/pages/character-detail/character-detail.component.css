@@ -126,3 +126,7 @@
   color: #888;
   font-style: italic;
 }
+
+#background{
+  background-color: grey;
+}

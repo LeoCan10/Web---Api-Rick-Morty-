@@ -1,1 +1,129 @@
-<p>register works!</p>,
+<!-- register.component.html -->
+<div class="register-page d-flex align-items-center justify-content-center vh-100">
+  <div class="container-fluid">
+    <div class="row align-items-center">
+
+      <!-- Card de Registro -->
+      <div class="col-md-5 col-lg-4 mx-auto order-2 order-md-1">
+        <div class="auth-card shadow-lg p-4 rounded">
+          <h2 class="text-center mb-4">Crear Cuenta</h2>
+
+          <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+            <!-- Nombre -->
+            <div class="mb-3">
+              <label for="name" class="form-label">Nombre</label>
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                [(ngModel)]="name"
+                name="name"
+                placeholder="Tu nombre completo"
+                required
+                #nameInput="ngModel"
+                [class.is-invalid]="nameInput.invalid && nameInput.touched"
+              >
+              <div class="invalid-feedback" *ngIf="nameInput.errors?.['required']">
+                El nombre es requerido
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                [(ngModel)]="email"
+                name="email"
+                placeholder="tu@email.com"
+                required
+                #emailInput="ngModel"
+                [class.is-invalid]="emailInput.invalid && emailInput.touched"
+              >
+              <div class="invalid-feedback" *ngIf="emailInput.errors?.['required']">
+                El email es requerido
+              </div>
+              <div class="invalid-feedback" *ngIf="emailInput.errors?.['email']">
+                Por favor ingresa un email válido
+              </div>
+            </div>
+
+            <!-- Contraseña -->
+            <div class="mb-3">
+              <label for="password" class="form-label">Contraseña</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                [(ngModel)]="password"
+                name="password"
+                placeholder="Mínimo 6 caracteres"
+                required
+                minlength="6"
+                #passwordInput="ngModel"
+                [class.is-invalid]="passwordInput.invalid && passwordInput.touched"
+              >
+              <div class="invalid-feedback" *ngIf="passwordInput.errors?.['required']">
+                La contraseña es requerida
+              </div>
+              <div class="invalid-feedback" *ngIf="passwordInput.errors?.['minlength']">
+                La contraseña debe tener al menos 6 caracteres
+              </div>
+            </div>
+
+            <!-- Confirmar Contraseña -->
+            <div class="mb-4">
+              <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
+              <input
+                type="password"
+                class="form-control"
+                id="confirmPassword"
+                [(ngModel)]="confirmPassword"
+                name="confirmPassword"
+                placeholder="Repite tu contraseña"
+                required
+                #confirmPasswordInput="ngModel"
+                [class.is-invalid]="(confirmPasswordInput.invalid && confirmPasswordInput.touched) || password !== confirmPassword"
+              >
+              <div class="invalid-feedback" *ngIf="confirmPasswordInput.errors?.['required']">
+                Debes confirmar tu contraseña
+              </div>
+              <div class="invalid-feedback" *ngIf="password !== confirmPassword && confirmPassword">
+                Las contraseñas no coinciden
+              </div>
+            </div>
+
+            <!-- Error -->
+            <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+              {{ errorMessage }}
+            </div>
+
+            <!-- Botón -->
+            <button
+              type="submit"
+              class="btn btn-primary w-100 mb-3"
+              [disabled]="isLoading"
+            >
+              <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+              {{ isLoading ? 'Creando cuenta...' : 'Crear Cuenta' }}
+            </button>
+
+            <!-- Enlace login -->
+            <div class="text-center">
+              <p>¿Ya tienes una cuenta?
+                <a routerLink="/login" class="text-decoration-none">Inicia sesión aquí</a>
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Imagen Rick & Morty -->
+      <div class="col-md-6 text-center d-none d-md-block order-1 order-md-2">
+        <img src="assets/images/rick-and-morty.png" alt="Rick and Morty" class="img-fluid portal-img">
+      </div>
+    </div>
+  </div>
+</div>

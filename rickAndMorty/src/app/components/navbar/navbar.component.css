@@ -44,3 +44,11 @@
 .active-link {
   text-decoration: underline;
 }
+
+.user-name {
+  margin-right: 1rem;
+  font-weight: 500;
+  color: #0d6efd;
+  user-select: none;
+  pointer-events: none;
+}

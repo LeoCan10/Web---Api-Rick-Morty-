@@ -1,3 +1,4 @@
+<!-- navbar.component.html -->
 <nav class="navbar">
   <div class="navbar-left">
     <span class="logo">Rick & Morty</span>
@@ -6,13 +7,15 @@
     <a routerLink="/locations" routerLinkActive="active-link">Locations</a>
   </div>
   <div class="navbar-right">
-    <ng-container >
-      <a style="cursor: pointer;">Profile</a>
-      <a style="cursor: pointer;">Log Out</a>
+    <ng-container *ngIf="isLoggedIn; else guestLinks">
+      <span class="user-name">{{userName}}</span>
+      <hr>
+      <a routerLink="/notfound" routerLinkActive="active-link">Profile</a>
+      <a style="cursor: pointer;" (click)="logout()">Log Out</a>
     </ng-container>
     <ng-template #guestLinks>
-      <a routerLink="/login">Login</a>
-      <a routerLink="/register">Register</a>
+      <a routerLink="/login" routerLinkActive="active-link">Login</a>
+      <a routerLink="/register" routerLinkActive="active-link">Register</a>
     </ng-template>
   </div>
 </nav>

@@ -2,14 +2,18 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class rickMortyService {
   private baseUrl = 'https://rickandmortyapi.com/api';
 
   constructor(private http: HttpClient) {}
 
-  getCharacters(page: number = 1): Observable<any> {
-    return this.http.get(`${this.baseUrl}/character/?page=${page}`);
+  getCharacters(page: number = 1, name: string = ''): Observable<any> {
+    let url = `${this.baseUrl}/character/?page=${page}`;
+    if (name && name.trim() !== '') {
+      url += `&name=${name}`;
+    }
+    return this.http.get(url);
   }
 
   getCharacterById(id: number): Observable<any> {
@@ -21,7 +25,6 @@ export class rickMortyService {
   }
 
   getMultipleEpisodes(urls: string[]): Observable<any> {
-    // Extraer los IDs de los episodios de las URLs
     const episodeIds = urls.map(url => url.split('/').pop()).join(',');
     return this.http.get(`${this.baseUrl}/episode/${episodeIds}`);
   }
