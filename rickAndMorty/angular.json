@@ -78,6 +78,7 @@
               {
                 "glob": "**/*",
                 "input": "public"
+
               }
             ],
             "styles": [

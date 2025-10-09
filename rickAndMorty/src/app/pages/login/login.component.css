@@ -86,3 +86,8 @@ a:hover {
   color: rgb(81, 79, 79);
   opacity: 1;
 }
+
+.login-image{
+  max-width: 100%;
+  border-radius: 12px;
+}

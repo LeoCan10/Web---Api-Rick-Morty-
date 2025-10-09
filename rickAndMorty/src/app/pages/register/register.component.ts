@@ -62,7 +62,7 @@ export class RegisterComponent {
     this.authService.register({
       name: this.name,
       email: this.email,
-      password: this.password
+      password: this.password,
     }).subscribe({
       next: (response: AuthResponse) => {
         this.isLoading = false;
