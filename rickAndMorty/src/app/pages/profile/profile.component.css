@@ -1,0 +1,343 @@
+.profile-container {
+  background-color: #1a1a1a;
+  min-height: 100vh;
+  padding: 2rem;
+  color: #ddd;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.profile-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 2rem;
+}
+
+/* Columna Izquierda */
+.profile-left {
+  position: sticky;
+  top: 2rem;
+  height: fit-content;
+}
+
+.profile-card {
+  background-color: #2a2a2a;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid #333;
+}
+
+.avatar-section {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.profile-avatar {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #42a5f5;
+  box-shadow: 0 4px 12px rgba(66, 165, 245, 0.3);
+}
+
+.user-info {
+  text-align: center;
+}
+
+.user-info h2 {
+  font-size: 24px;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.user-email {
+  color: #42a5f5;
+  margin-bottom: 1rem;
+  word-break: break-word;
+}
+
+.user-detail {
+  margin: 0.8rem 0;
+  font-size: 15px;
+  color: #ccc;
+}
+
+.user-detail strong {
+  color: #fff;
+}
+
+.role-admin {
+  color: #ffd700;
+  font-weight: bold;
+}
+
+.role-user {
+  color: #42a5f5;
+  font-weight: bold;
+}
+
+.btn-edit {
+  margin-top: 1.5rem;
+  background-color: #42a5f5;
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+  width: 100%;
+}
+
+.btn-edit:hover {
+  background-color: #1e88e5;
+}
+
+/* Formulario de Edición */
+.edit-form h3 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #fff;
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #ddd;
+  font-weight: 500;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.7rem;
+  background-color: #1f1f1f;
+  border: 1px solid #444;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 14px;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #42a5f5;
+  box-shadow: 0 0 0 2px rgba(66, 165, 245, 0.2);
+}
+
+.form-text {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 12px;
+  color: #888;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.btn-save,
+.btn-cancel {
+  flex: 1;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-save {
+  background-color: #4caf50;
+  color: white;
+}
+
+.btn-save:hover:not(:disabled) {
+  background-color: #45a049;
+}
+
+.btn-save:disabled {
+  background-color: #666;
+  cursor: not-allowed;
+}
+
+.btn-cancel {
+  background-color: #666;
+  color: white;
+}
+
+.btn-cancel:hover:not(:disabled) {
+  background-color: #555;
+}
+
+.alert {
+  padding: 0.8rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.alert-success {
+  background-color: rgba(76, 175, 80, 0.2);
+  border: 1px solid #4caf50;
+  color: #4caf50;
+}
+
+.alert-error {
+  background-color: rgba(244, 67, 54, 0.2);
+  border: 1px solid #f44336;
+  color: #f44336;
+}
+
+/* Columna Derecha - Favoritos */
+.profile-right {
+  background-color: #2a2a2a;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid #333;
+}
+
+.favorites-card h3 {
+  margin-bottom: 1.5rem;
+  font-size: 22px;
+  color: #fff;
+  border-bottom: 2px solid #444;
+  padding-bottom: 0.8rem;
+}
+
+.no-favorites {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #888;
+}
+
+.no-favorites p {
+  margin-bottom: 1.5rem;
+  font-size: 16px;
+}
+
+.btn-browse {
+  display: inline-block;
+  background-color: #42a5f5;
+  color: white;
+  padding: 0.8rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.btn-browse:hover {
+  background-color: #1e88e5;
+}
+
+.favorites-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.favorite-episode-item {
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  padding: 1rem;
+  border: 1px solid #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  transition: border-color 0.2s;
+}
+
+.favorite-episode-item:hover {
+  border-color: #42a5f5;
+}
+
+.episode-info-click {
+  flex: 1;
+  cursor: pointer;
+}
+
+.episode-header-fav {
+  display: flex;
+  gap: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.episode-number-small {
+  background-color: #42a5f5;
+  color: white;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.episode-code-small {
+  color: #42a5f5;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.favorite-episode-item h4 {
+  margin: 0.5rem 0;
+  font-size: 16px;
+  color: #fff;
+}
+
+.episode-date-small {
+  margin: 0;
+  font-size: 13px;
+  color: #888;
+}
+
+.btn-remove {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.btn-remove:hover {
+  background-color: #d32f2f;
+  transform: scale(1.1);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .profile-content {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-left {
+    position: static;
+  }
+}
+
+@media (max-width: 576px) {
+  .profile-container {
+    padding: 1rem;
+  }
+
+  .profile-card,
+  .profile-right {
+    padding: 1.5rem;
+  }
+
+  .form-buttons {
+    flex-direction: column;
+  }
+}

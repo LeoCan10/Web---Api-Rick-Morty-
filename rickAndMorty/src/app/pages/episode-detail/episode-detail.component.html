@@ -1,0 +1,141 @@
+<div class="detail-container">
+  <!-- Loading -->
+  <div *ngIf="loading" class="loading-container">
+    <p>Cargando episodio...</p>
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="error && !loading" class="error-container">
+    <p>{{ error }}</p>
+  </div>
+
+  <!-- Contenido del episodio -->
+  <div *ngIf="episode && !loading && !error">
+    <!-- Info del episodio -->
+    <div class="episode-info">
+      <div class="episode-header">
+        <div>
+          <span class="episode-number">Episode {{ episode.id }}</span>
+          <h2>{{ episode.name }}</h2>
+          <p class="episode-code">{{ episode.episode }}</p>
+          <p class="episode-date">Aired: {{ episode.air_date }}</p>
+        </div>
+        <button
+          class="favorite-btn-large"
+          [class.is-favorite]="isFavorite()"
+          (click)="toggleFavorite()"
+          title="{{ isFavorite() ? 'Remove from favorites' : 'Add to favorites' }}"
+        >
+          <span *ngIf="isFavorite()">★ Favorite</span>
+          <span *ngIf="!isFavorite()">☆ Add to Favorites</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Lista de personajes -->
+    <div class="characters-section" *ngIf="characters.length > 0">
+      <h3>Characters in this episode ({{ characters.length }})</h3>
+      <div class="characters-grid">
+        <div
+          class="character-mini-card"
+          *ngFor="let character of characters"
+          [routerLink]="['/characters', character.id]"
+        >
+          <img [src]="character.image" [alt]="character.name" />
+          <div class="character-mini-info">
+            <h5>{{ character.name }}</h5>
+            <p>{{ character.species }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección de comentarios -->
+    <div class="comments-section">
+      <div class="comments-header">
+        <h3>Comments ({{ comments.length }})</h3>
+              </div>
+
+      <!-- Formulario para agregar/editar comentario -->
+      <div class="comment-form" *ngIf="!commentsDisabled">
+        <form [formGroup]="commentForm" (ngSubmit)="onSubmitComment()">
+          <div class="form-group">
+            <label for="comment-content">
+              {{ editingCommentId ? 'Edit your comment:' : 'Add a comment:' }}
+            </label>
+            <textarea
+              id="comment-content"
+              formControlName="content"
+              rows="4"
+              placeholder="Write your comment here..."
+              class="form-control"
+            ></textarea>
+            <div *ngIf="commentForm.get('content')?.invalid && commentForm.get('content')?.touched"
+                 class="error-text">
+              Comment must be at least 3 characters long
+            </div>
+          </div>
+          <div class="form-buttons">
+            <button
+              type="submit"
+              class="btn-submit"
+              [disabled]="commentForm.invalid"
+            >
+              {{ editingCommentId ? '💾 Update Comment' : '📝 Post Comment' }}
+            </button>
+            <button
+              *ngIf="editingCommentId"
+              type="button"
+              class="btn-cancel-edit"
+              (click)="cancelEdit()"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Lista de comentarios -->
+      <div class="comments-list" *ngIf="comments.length > 0">
+        <div class="comment-item" *ngFor="let comment of comments">
+          <div class="comment-avatar">
+            <img
+              [src]="comment.userAvatar || getDefaultAvatar()"
+              [alt]="comment.userName"
+              (error)="$any($event.target).src = getDefaultAvatar()"
+            />
+          </div>
+          <div class="comment-content">
+            <div class="comment-header-info">
+              <span class="comment-author">{{ comment.userName }}</span>
+              <span class="comment-date">{{ comment.createdAt | date:'short' }}</span>
+              <span *ngIf="comment.updatedAt" class="comment-edited">(edited)</span>
+            </div>
+            <p class="comment-text">{{ comment.content }}</p>
+            <div class="comment-actions" *ngIf="canEditComment(comment) || canDeleteComment(comment)">
+              <button
+                *ngIf="canEditComment(comment) && !commentsDisabled"
+                class="btn-edit-comment"
+                (click)="editComment(comment)"
+              >
+                ✏️ Edit
+              </button>
+              <button
+                *ngIf="canDeleteComment(comment)"
+                class="btn-delete-comment"
+                (click)="deleteComment(comment.id)"
+              >
+                🗑️ Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mensaje si no hay comentarios -->
+      <div *ngIf="comments.length === 0 && !commentsDisabled" class="no-comments">
+        <p>No comments yet. Be the first to comment!</p>
+      </div>
+    </div>
+  </div>
+</div>

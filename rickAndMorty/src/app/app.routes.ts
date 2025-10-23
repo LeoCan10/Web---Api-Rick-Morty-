@@ -6,6 +6,9 @@ import { NotFoundComponent } from './pages/notfound/notfound.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { AuthGuard, LoginGuard } from './services/auth.guard';
+import { EpisodesComponent } from './pages/episodes/episodes.component';
+import { EpisodeDetailComponent } from './pages/episode-detail/episode-detail.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 export const routes: Routes = [
   {
@@ -16,6 +19,21 @@ export const routes: Routes = [
   {
     path: 'characters/:id',
     component: CharacterDetailComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'episodes',
+    component: EpisodesComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'episodes/:id',
+    component: EpisodeDetailComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
     canActivate: [AuthGuard],
   },
   {

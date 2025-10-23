@@ -9,7 +9,7 @@
     <ng-container *ngIf="isLoggedIn; else guestLinks">
       <span class="user-name">{{userName}}</span>
       <hr>
-      <a routerLink="/notfound" routerLinkActive="active-link">Profile</a>
+      <a routerLink="/profile" routerLinkActive="active-link">Profile</a>
       <a style="cursor: pointer;" (click)="logout()">Log Out</a>
     </ng-container>
     <ng-template #guestLinks>

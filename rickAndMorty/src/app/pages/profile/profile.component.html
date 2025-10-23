@@ -1,0 +1,153 @@
+<div class="profile-container">
+  <div class="profile-content" *ngIf="user">
+
+    <!-- Info del usuario -->
+    <div class="profile-left">
+      <div class="profile-card">
+        <!-- Avatar -->
+        <div class="avatar-section">
+          <img
+            [src]="user.avatar || getDefaultAvatar()"
+            alt="Profile picture"
+            class="profile-avatar"
+            (error)="$any($event.target).src = getDefaultAvatar()"
+          />
+        </div>
+
+        <!-- Información personal -->
+        <div class="user-info" *ngIf="!isEditing">
+          <h2>{{ user.name }}</h2>
+          <p class="user-email">
+            <strong>Email:</strong> {{ user.email }}
+          </p>
+          <p class="user-detail" *ngIf="user.birthdate">
+            <strong>Birthdate:</strong> {{ user.birthdate }}
+          </p>
+          <p class="user-detail" *ngIf="user.location">
+            <strong>Location:</strong> {{ user.location }}
+          </p>
+          <p class="user-detail">
+            <strong>Role:</strong>
+            <span [class.role-admin]="user.role === 'admin'" [class.role-user]="user.role === 'user'">
+              {{ user.role === 'admin' ? 'Administrator' : 'User' }}
+            </span>
+          </p>
+
+          <button class="btn-edit" (click)="toggleEdit()">
+            Edit Profile
+          </button>
+        </div>
+
+        <!-- Formulario de edición -->
+        <div class="edit-form" *ngIf="isEditing">
+          <h3>Edit Profile</h3>
+
+          <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+            <!-- Nickname -->
+            <div class="form-group">
+              <label for="nickname">Nickname *</label>
+              <input
+                type="text"
+                id="nickname"
+                class="form-control"
+                formControlName="nickname"
+                placeholder="Your nickname"
+              />
+            </div>
+
+            <!-- Avatar URL -->
+            <div class="form-group">
+              <label for="avatar">Profile Picture URL</label>
+              <input
+                type="url"
+                id="avatar"
+                class="form-control"
+                formControlName="avatar"
+                placeholder="https://example.com/image.jpg"
+              />
+              <small class="form-text">Enter a valid image URL</small>
+            </div>
+
+            <!-- Location -->
+            <div class="form-group">
+              <label for="location">Location</label>
+              <input
+                type="text"
+                id="location"
+                class="form-control"
+                formControlName="location"
+                placeholder="Your location"
+              />
+            </div>
+
+            <!-- Success/Error Messages -->
+            <div *ngIf="successMessage" class="alert alert-success">
+              {{ successMessage }}
+            </div>
+            <div *ngIf="errorMessage" class="alert alert-error">
+              {{ errorMessage }}
+            </div>
+
+            <!-- Botones -->
+            <div class="form-buttons">
+              <button
+                type="submit"
+                class="btn-save"
+                [disabled]="loading || editForm.invalid"
+              >
+                {{ loading ? 'Saving...' : 'Save Changes' }}
+              </button>
+              <button
+                type="button"
+                class="btn-cancel"
+                (click)="toggleEdit()"
+                [disabled]="loading"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Episodios Favoritos -->
+    <div class="profile-right">
+      <div class="favorites-card">
+        <h3>Favorite Episodes ({{ favoriteEpisodes.length }})</h3>
+
+        <div *ngIf="favoriteEpisodes.length === 0" class="no-favorites">
+          <p>You haven't added any favorite episodes yet.</p>
+          <a routerLink="/episodes" class="btn-browse">Browse Episodes</a>
+        </div>
+
+        <div class="favorites-list" *ngIf="favoriteEpisodes.length > 0">
+          <div
+            class="favorite-episode-item"
+            *ngFor="let episode of favoriteEpisodes"
+          >
+            <div
+              class="episode-info-click"
+              [routerLink]="['/episodes', episode.id]"
+            >
+              <div class="episode-header-fav">
+                <span class="episode-number-small">EP {{ episode.id }}</span>
+                <span class="episode-code-small">{{ episode.episode }}</span>
+              </div>
+              <h4>{{ episode.name }}</h4>
+              <p class="episode-date-small">{{ episode.air_date }}</p>
+            </div>
+            <button
+              class="btn-remove"
+              (click)="removeFavorite(episode.id)"
+              title="Remove from favorites"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -11,6 +11,10 @@ export interface User {
   email: string;
   password: string;
   avatar?: string;
+  birthdate?: string;
+  location?: string;
+  role?: 'user' | 'admin';
+  favoriteEpisodes?: number[];
 }
 
 export interface AuthResponse {
@@ -202,5 +206,33 @@ export class AuthService {
         return updatedUser;
       })
     );
+  }
+
+  toggleFavoriteEpisode(episodeId: number): Observable<User> {
+  const currentUser = this.getCurrentUser();
+  if (!currentUser) {
+    return throwError(() => new Error('Usuario no autenticado'));
+  }
+
+  const favoriteEpisodes = currentUser.favoriteEpisodes || [];
+  const index = favoriteEpisodes.indexOf(episodeId);
+
+  let updatedFavorites: number[];
+  if (index === -1) {
+    // ➕ Agregar si no estaba
+    updatedFavorites = [...favoriteEpisodes, episodeId];
+  } else {
+    // ➖ Quitar si ya estaba
+    updatedFavorites = favoriteEpisodes.filter(id => id !== episodeId);
+  }
+
+  return this.updateProfile({ favoriteEpisodes: updatedFavorites });
+}
+
+
+  isFavoriteEpisode(episodeId: number): boolean {
+    const currentUser = this.getCurrentUser();
+    if (!currentUser) return false;
+    return (currentUser.favoriteEpisodes || []).includes(episodeId);
   }
 }

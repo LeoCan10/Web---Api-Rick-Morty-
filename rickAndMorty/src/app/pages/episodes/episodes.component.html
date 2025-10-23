@@ -1,0 +1,56 @@
+<div id="background">
+  <nav class="breadcrumb">
+    <span class="breadcrumb-item"><a routerLink="/">Home</a></span>
+    <span class="breadcrumb-item active">Episodes</span>
+  </nav>
+
+  <!-- Buscador -->
+  <div class="search-container">
+    <input
+      class="search-input"
+      type="text"
+      placeholder="Search episodes..."
+      [(ngModel)]="searchTerm"
+    />
+    <button class="search-button" (click)="onSearch()">Search</button>
+  </div>
+
+  <!-- Grid de episodios -->
+  <div class="episodes-grid">
+  <div class="episode-card" *ngFor="let episode of episodes" [routerLink]="['/episodes', episode.id]">
+      <div class="episode-card" [routerLink]="['/episodes', episode.id]">
+        <div class="episode-card-header">
+          <span class="episode-number">Episode {{ episode.id }}</span>
+          <button
+            class="favorite-btn"
+            [class.is-favorite]="isFavorite(episode.id)"
+            (click)="toggleFavorite(episode.id, $event)"
+            title="{{ isFavorite(episode.id) ? 'Remove from favorites' : 'Add to favorites' }}"
+          >
+            <span *ngIf="isFavorite(episode.id)">★</span>
+            <span *ngIf="!isFavorite(episode.id)">☆</span>
+          </button>
+        </div>
+        <div class="episode-card-body">
+          <h5>{{ episode.name }}</h5>
+          <p class="episode-code">{{ episode.episode }}</p>
+          <p class="episode-date">{{ episode.air_date }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Paginación -->
+  <div class="pagination-container">
+    <app-pagination
+      [currentPage]="currentPage"
+      [totalPages]="totalPages"
+      [maxPagesToShow]="3"
+      (pageChange)="changePage($event)"
+    ></app-pagination>
+  </div>
+
+  <footer class="footer">
+    <h6>Rick and Morty Wiki - All rights reserved to John Doe SA</h6>
+  </footer>
+</div>

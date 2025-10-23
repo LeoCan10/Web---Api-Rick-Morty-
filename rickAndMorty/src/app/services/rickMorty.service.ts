@@ -32,4 +32,21 @@ export class rickMortyService {
   getCharactersList(): Observable<any> {
     return this.getCharacters();
   }
+
+  getEpisodes(page: number = 1, name: string = ''): Observable<any> {
+    let url = `${this.baseUrl}/episode/?page=${page}`;
+    if (name && name.trim() !== '') {
+      url += `&name=${name}`;
+    }
+    return this.http.get(url);
+  }
+
+  getEpisodeById(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/episode/${id}`);
+  }
+
+  getMultipleCharacters(urls: string[]): Observable<any> {
+    const characterIds = urls.map(url => url.split('/').pop()).join(',');
+    return this.http.get(`${this.baseUrl}/character/${characterIds}`);
+  }
 }
