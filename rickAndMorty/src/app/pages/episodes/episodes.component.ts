@@ -17,7 +17,6 @@ import { PaginationComponent } from '../../components/pagination/pagination.comp
     RouterLink,
     PaginationComponent,
     FormsModule,
-    DatePipe
   ]
 })
 export class EpisodesComponent implements OnInit {

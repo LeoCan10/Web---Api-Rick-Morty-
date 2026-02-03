@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService, AuthResponse } from '../../services/auth.service';
-import { hashPassword } from '../../utils/hash';
 
 @Component({
   selector: 'app-register',
@@ -49,16 +48,7 @@ export class RegisterComponent {
     this.isLoading = true;
     this.errorMessage = '';
 
-    // Hashea solo para guardar en Local
-    const hashedPassword = await hashPassword(this.password);
-
-    localStorage.setItem('user', JSON.stringify({
-      name: this.name,
-      email: this.email,
-      password: hashedPassword
-    }));
-
-    // Manda contraseña normal a la api
+    // Manda contraseña en texto (el servidor la hasheará)
     this.authService.register({
       name: this.name,
       email: this.email,

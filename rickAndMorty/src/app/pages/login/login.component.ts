@@ -56,7 +56,6 @@ export class LoginComponent implements OnInit {
       next: (response: AuthResponse) => {
         this.isLoading = false;
         if (response.success) {
-          localStorage.setItem('authToken', response.token || '');
           this.router.navigate(['/characters']);
         } else {
           this.errorMessage = response.message || 'Error en el inicio de sesión';

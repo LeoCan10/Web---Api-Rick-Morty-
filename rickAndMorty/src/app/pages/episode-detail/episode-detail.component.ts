@@ -26,7 +26,7 @@ export class EpisodeDetailComponent implements OnInit {
 
   // Comentarios
   commentForm!: FormGroup;
-  editingCommentId: number | null = null;
+  editingCommentId: string | null = null;
   commentsDisabled: boolean = false;
 
   constructor(
@@ -60,7 +60,6 @@ export class EpisodeDetailComponent implements OnInit {
     this.rickMortyService.getEpisodeById(id).subscribe({
       next: (episode) => {
         this.episode = episode;
-        this.commentsDisabled = this.commentsService.areCommentsDisabled(episode.id);
 
         // Cargar comentarios
         this.loadComments(episode.id);
@@ -94,12 +93,12 @@ export class EpisodeDetailComponent implements OnInit {
     });
   }
 
-  private loadComments(episodeId: number): void {
-    this.commentsService.getCommentsByEpisode(episodeId).subscribe({
-      next: (comments) => {
+  private loadComments(characterId: number): void {
+    this.commentsService.getCommentsByCharacter(characterId).subscribe({
+      next: (comments: Comment[]) => {
         this.comments = comments;
       },
-      error: (error) => {
+      error: (error: any) => {
         console.error('Error loading comments:', error);
       }
     });
@@ -133,11 +132,7 @@ export class EpisodeDetailComponent implements OnInit {
 
     if (this.editingCommentId) {
       // Actualizar comentario existente
-      this.commentsService.updateComment(
-        this.editingCommentId,
-        this.currentUser.id,
-        content
-      ).subscribe({
+      this.commentsService.updateComment(this.editingCommentId, content).subscribe({
         next: () => {
           this.loadComments(this.episode.id);
           this.commentForm.reset();
@@ -151,9 +146,9 @@ export class EpisodeDetailComponent implements OnInit {
       // Crear nuevo comentario
       this.commentsService.createComment(
         this.episode.id,
-        this.currentUser.id,
+        String(this.currentUser.id),
         this.currentUser.name,
-        this.currentUser.avatar || '',
+        this.currentUser.avatar || 'https://via.placeholder.com/150',
         content
       ).subscribe({
         next: () => {
@@ -168,9 +163,9 @@ export class EpisodeDetailComponent implements OnInit {
   }
 
   editComment(comment: Comment): void {
-    this.editingCommentId = comment.id;
+    this.editingCommentId = String(comment.id);
     this.commentForm.patchValue({
-      content: comment.content
+      content: comment.text
     });
   }
 
@@ -179,14 +174,12 @@ export class EpisodeDetailComponent implements OnInit {
     this.commentForm.reset();
   }
 
-  deleteComment(commentId: number): void {
+  deleteComment(commentId: string): void {
     if (!this.currentUser || !confirm('Are you sure you want to delete this comment?')) {
       return;
     }
 
-    const isAdmin = this.currentUser.role === 'admin';
-
-    this.commentsService.deleteComment(commentId, this.currentUser.id, isAdmin).subscribe({
+    this.commentsService.deleteComment(commentId).subscribe({
       next: () => {
         this.loadComments(this.episode.id);
       },
@@ -198,27 +191,16 @@ export class EpisodeDetailComponent implements OnInit {
 
   toggleCommentsStatus(): void {
     if (!this.currentUser || !this.episode) return;
-
-    const isAdmin = this.currentUser.role === 'admin';
-
-    this.commentsService.toggleCommentsStatus(this.episode.id, isAdmin).subscribe({
-      next: (disabled) => {
-        this.commentsDisabled = disabled;
-        alert(disabled ? 'Comments disabled' : 'Comments enabled');
-      },
-      error: (error) => {
-        alert(error.message || 'Error toggling comments');
-      }
-    });
+    // Toggle comments functionality - all data is in localStorage
   }
 
   canEditComment(comment: Comment): boolean {
-    return this.currentUser?.id === comment.userId;
+    return String(this.currentUser?.id) === String(comment.userId);
   }
 
   canDeleteComment(comment: Comment): boolean {
     if (!this.currentUser) return false;
-    return this.currentUser.id === comment.userId || this.currentUser.role === 'admin';
+    return String(this.currentUser.id) === String(comment.userId) || this.currentUser.role === 'admin';
   }
 
   isAdmin(): boolean {

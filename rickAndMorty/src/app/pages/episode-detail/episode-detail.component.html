@@ -111,7 +111,7 @@
               <span class="comment-date">{{ comment.createdAt | date:'short' }}</span>
               <span *ngIf="comment.updatedAt" class="comment-edited">(edited)</span>
             </div>
-            <p class="comment-text">{{ comment.content }}</p>
+            <p class="comment-text">{{ comment.text }}</p>
             <div class="comment-actions" *ngIf="canEditComment(comment) || canDeleteComment(comment)">
               <button
                 *ngIf="canEditComment(comment) && !commentsDisabled"
